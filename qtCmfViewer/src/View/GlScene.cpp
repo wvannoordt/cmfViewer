@@ -26,6 +26,7 @@ std::vector<GlSceneObject*>& GlScene::GetObjects(void)
 void GlScene::AddObject(GlSceneObject* newObject)
 {
     sceneObjects.push_back(newObject);
+    selectedObject = newObject;
 }
 
 void GlScene::PaintObjects(void)
@@ -33,5 +34,9 @@ void GlScene::PaintObjects(void)
     for (auto& obj: sceneObjects)
     {
         obj->PaintObject();
+    }
+    if (selectedObject != NULL)
+    {
+        selectedObject->IndicateBoundingBox();
     }
 }

@@ -5,8 +5,10 @@
 #include <map>
 #include "src/Main/PTLDialog.h"
 #include "src/View/GlViewWindow.h"
+#include "src/Main/ConsoleLog.h"
 #include "cmf.h"
 #include <vector>
+#include <QPlainTextEdit>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,6 +21,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     bool KeyIsPressed(Qt::Key k);
+    ConsoleLog* GetActiveConsole(void);
     ~MainWindow();
 
 private slots:
@@ -33,8 +36,12 @@ private:
     std::map<int, bool> isPressed;
     QList<GlViewWindow*> allGlScenes;
     GlViewWindow* activeScene;
+    ConsoleLog* activeConsole;
     //TEMPORARY
     std::vector<cmf::ICmfMesh*> meshes;
+    std::vector<cmf::SurfaceTriangulation*> triangulations;
+    cmf::CartesianMesh* lastCartMesh = NULL;
+    cmf::SurfaceTriangulation* lastSurfTri = NULL;
     bool wireFrameMode=false;
     //END TEMPORARY
 };

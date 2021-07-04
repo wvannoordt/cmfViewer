@@ -27,13 +27,19 @@ protected:
     virtual void paintGL() override;
     virtual void mouseMoveEvent(QMouseEvent* event) override;
     virtual void mousePressEvent(QMouseEvent* event) override;
+    virtual void mouseReleaseEvent(QMouseEvent* event) override;
     virtual void wheelEvent(QWheelEvent* event) override;
+    void OnLeftMouseMove(QMouseEvent* event);
+    void OnRightMouseMove(QMouseEvent* event);
     void ApplyView(const SceneView& view);
 private:
     void QColorToRGB(const QColor& c, float& r, float& g, float& b) const;
     GlScene scene;
     int lastMouseX, lastMouseY;
+    float normalizedLastMouseX, normalizedLastMouseY;
     MainWindow* mainWindow = NULL;
+    bool leftMouseDown = false;
+    bool rightMouseDown = false;
 };
 
 #endif // GLVIEWWINDOW_H

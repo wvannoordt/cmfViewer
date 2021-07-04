@@ -7,6 +7,8 @@
 
 #include "src/SceneObjects/CubeObject.h"
 #include "src/SceneObjects/CmfCartesianMeshObject.h"
+#include "src/SceneObjects/TriangulationObject.h"
+#include "src/SceneObjects/CmfSurfaceTriangulationObject.h"
 
 class GlScene
 {
@@ -20,6 +22,7 @@ class GlScene
     private:
         std::vector<GlSceneObject*> sceneObjects;
         SceneView currentView;
+        GlSceneObject* selectedObject = NULL;
 };
 
 #endif

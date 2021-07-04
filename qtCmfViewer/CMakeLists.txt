@@ -39,6 +39,7 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
 set(PROJECT_SOURCES
+        #Main
         src/Main/main.cpp
         src/Main/mainwindow.cpp
         src/Main/mainwindow.h
@@ -46,18 +47,24 @@ set(PROJECT_SOURCES
         src/Main/PTLDialog.h
         src/Main/PTLDialog.cpp
         src/Main/PTLDialog.ui
-        #
+        src/Main/ConsoleLog.h
+        src/Main/ConsoleLog.cpp
+        #View
         src/View/GlViewWindow.h
         src/View/GlViewWindow.cpp
         src/View/SceneView.h
         src/View/GlScene.h
         src/View/GlScene.cpp
         src/View/GlSceneObject.h
-        #
+        #SceneObjects
         src/SceneObjects/CubeObject.h
         src/SceneObjects/CubeObject.cpp
         src/SceneObjects/CmfCartesianMeshObject.h
         src/SceneObjects/CmfCartesianMeshObject.cpp
+        src/SceneObjects/TriangulationObject.h
+        src/SceneObjects/TriangulationObject.cpp
+        src/SceneObjects/CmfSurfaceTriangulationObject.h
+        src/SceneObjects/CmfSurfaceTriangulationObject.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

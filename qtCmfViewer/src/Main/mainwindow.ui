@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="sceneTab">
      <attribute name="title">
@@ -58,7 +58,7 @@
      <attribute name="title">
       <string>Console</string>
      </attribute>
-     <widget class="QPlainTextEdit" name="consoleOutput">
+     <widget class="ConsoleLog" name="consoleOutput">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -104,6 +104,11 @@
    <extends>QWidget</extends>
    <header location="global">src/View/GlViewWindow.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ConsoleLog</class>
+   <extends>QPlainTextEdit</extends>
+   <header>src/Main/ConsoleLog.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

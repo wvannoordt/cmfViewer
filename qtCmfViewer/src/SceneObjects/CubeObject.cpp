@@ -43,7 +43,6 @@ void CubeObject::PaintObject(void)
     }
     if (LinesAreEnabled())
     {
-        comp = 0.1;
         float inflate = 1.0001;
         for (int idir = 0; idir < 3; idir++)
         {
@@ -52,10 +51,9 @@ void CubeObject::PaintObject(void)
             for (int pm = -1; pm <= 1; pm += 2)
             {
                 vertex[idir] = center[idir]+pm*inflate*radii[idir];
-                glLineWidth(2.0f);
+                glLineWidth(lineWidth);
                 glBegin(GL_LINE_LOOP);
-                glColor3f(comp, comp, comp);
-                comp -= 0.05;
+                glColor3f(lineColor[0], lineColor[1], lineColor[2]);
                 for (int p2 = -1; p2 <= 1; p2+=2)
                 {
                     for (int p1 = -1; p1 <= 1; p1+=2)

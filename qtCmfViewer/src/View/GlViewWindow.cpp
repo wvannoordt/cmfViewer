@@ -10,6 +10,8 @@ GlViewWindow::GlViewWindow(QWidget* parent) : QOpenGLWidget(parent)
     lastMouseY = 0;
     scene.GetCurrentView().width = 0;
     scene.GetCurrentView().height = 0;
+    normalizedLastMouseX = 0.0;
+    normalizedLastMouseY = 0.0;
 }
 
 GlViewWindow::~GlViewWindow(void)
@@ -72,9 +74,29 @@ void GlViewWindow::mousePressEvent(QMouseEvent* event)
 {
     lastMouseX = event->x();
     lastMouseY = event->y();
+    if (event->button() == Qt::LeftButton) leftMouseDown = true;
+    if (event->button() == Qt::RightButton) rightMouseDown = true;
+}
+
+void GlViewWindow::mouseReleaseEvent(QMouseEvent* event)
+{
+    if (event->button() == Qt::LeftButton) leftMouseDown = false;
+    if (event->button() == Qt::RightButton) rightMouseDown = false;
 }
 
 void GlViewWindow::mouseMoveEvent(QMouseEvent* event)
+{
+    if (rightMouseDown)
+    {
+        this->OnRightMouseMove(event);
+    }
+    else
+    {
+        this->OnLeftMouseMove(event);
+    }
+}
+
+void GlViewWindow::OnLeftMouseMove(QMouseEvent* event)
 {
     int deltaX = event->x() - lastMouseX;
     int deltaY = event->y() - lastMouseY;
@@ -93,6 +115,11 @@ void GlViewWindow::mouseMoveEvent(QMouseEvent* event)
     }
     lastMouseX = event->x();
     lastMouseY = event->y();
+}
+
+void GlViewWindow::OnRightMouseMove(QMouseEvent* event)
+{
+
 }
 
 void GlViewWindow::resizeGL(int w, int h)
