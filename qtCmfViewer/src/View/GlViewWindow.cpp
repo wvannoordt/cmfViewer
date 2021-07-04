@@ -10,16 +10,22 @@ GlViewWindow::GlViewWindow(QWidget* parent) : QOpenGLWidget(parent)
     lastMouseY = 0;
     scene.GetCurrentView().width = 0;
     scene.GetCurrentView().height = 0;
-    PTL::PropertyTree input;
-    input.Read("/home/wvn/input.ptl");
-    cmf::CartesianMeshInputInfo info(input["Domain"]);
-    temporaryMesh = new cmf::CartesianMesh(info);
-    scene.AddObject(new CmfCartesianMeshObject(temporaryMesh));
 }
 
 GlViewWindow::~GlViewWindow(void)
 {
-    delete temporaryMesh;
+
+}
+
+void GlViewWindow::ResetView(void)
+{
+    scene.GetCurrentView().Reset();
+    this->update();
+}
+
+GlScene& GlViewWindow::GetScene(void)
+{
+    return scene;
 }
 
 void GlViewWindow::IncrementRotation(float incrAzimuth, float incrZenith)
@@ -32,8 +38,7 @@ void GlViewWindow::IncrementRotation(float incrAzimuth, float incrZenith)
 
 void GlViewWindow::IncrementShift(float incrX, float incrY)
 {
-    scene.GetCurrentView().xScreenShift += incrX;
-    scene.GetCurrentView().yScreenShift += incrY;
+    scene.GetCurrentView().IncrementShift(incrX, incrY);
     this->paintGL();
     this->update();
 }
@@ -113,25 +118,27 @@ void GlViewWindow::ApplyView(const SceneView& view)
 {
     float aspect = ((float)view.width) / ((float)view.height);
     gluPerspective(scene.GetCurrentView().GetAngle(), aspect, 0.1, 400000000);
-    glTranslatef(0.0, 0.0, -3.0);
-    glTranslatef(scene.GetCurrentView().xScreenShift, -scene.GetCurrentView().yScreenShift, 0.0);
+    glTranslatef(0.0, 0.0, scene.GetCurrentView().zdisp);
 
     double k = 0.01745329251;
     float phi = scene.GetCurrentView().zenith;
     float theta = scene.GetCurrentView().azimuth;
+
+    auto orbit = scene.GetCurrentView().orbit;
     glRotatef(theta, 0.0, 1.0, 0.0);
     glRotatef(phi, cos(k*theta), 0.0, sin(k*theta));
+    glTranslatef(-orbit[0], -orbit[1], -orbit[2]);
 }
 
 void GlViewWindow::wheelEvent(QWheelEvent* event)
 {
-    if (event->pixelDelta().y()>0)
+    if (event->angleDelta().y()<0)
     {
-        scene.GetCurrentView().pov += 1.015;
+        scene.GetCurrentView().zdisp += 0.09*scene.GetCurrentView().zdisp;
     }
     else
     {
-        scene.GetCurrentView().pov -= 1.015;
+        scene.GetCurrentView().zdisp -= 0.09*scene.GetCurrentView().zdisp;
     }
     this->update();
 }
@@ -144,22 +151,23 @@ void GlViewWindow::paintGL()
     this->ApplyView(scene.GetCurrentView());
     scene.PaintObjects();
 
+    float eps = 0.001;
     glBegin(GL_LINES);
     glColor3f(1.0, 0.0, 0.0);
-    glVertex3f(0.0, 0.0, 0.0);
-    glVertex3f(0.5, 0.0, 0.0);
+    glVertex3f(0.0-eps, 0.0-eps, 0.0-eps);
+    glVertex3f(0.5-eps, 0.0-eps, 0.0-eps);
     glEnd();
 
     glBegin(GL_LINES);
     glColor3f(0.0, 1.0, 0.0);
-    glVertex3f(0.0, 0.0, 0.0);
-    glVertex3f(0.0, 0.5, 0.0);
+    glVertex3f(0.0-eps, 0.0-eps, 0.0-eps);
+    glVertex3f(0.0-eps, 0.5-eps, 0.0-eps);
     glEnd();
 
     glBegin(GL_LINES);
     glColor3f(0.0, 0.0, 1.0);
-    glVertex3f(0.0, 0.0, 0.0);
-    glVertex3f(0.0, 0.0, 0.5);
+    glVertex3f(0.0-eps, 0.0-eps, 0.0-eps);
+    glVertex3f(0.0-eps, 0.0-eps, 0.5-eps);
     glEnd();
     glFlush();
 }

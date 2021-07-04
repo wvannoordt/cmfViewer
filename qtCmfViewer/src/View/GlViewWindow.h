@@ -19,6 +19,8 @@ public:
     void IncrementRotation(float incrAzimuth, float incrZenith);
     void IncrementShift(float incrX, float incrY);
     void SetRootWindow(MainWindow* window);
+    void ResetView(void);
+    GlScene& GetScene(void);
 protected:
     virtual void initializeGL() override;
     virtual void resizeGL(int w, int h) override;
@@ -32,7 +34,6 @@ private:
     GlScene scene;
     int lastMouseX, lastMouseY;
     MainWindow* mainWindow = NULL;
-    cmf::CartesianMesh* temporaryMesh;
 };
 
 #endif // GLVIEWWINDOW_H

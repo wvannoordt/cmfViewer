@@ -34,10 +34,23 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>30</y>
+        <y>40</y>
         <width>1541</width>
-        <height>751</height>
+        <height>741</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="resetViewButton">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>89</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Reset View</string>
       </property>
      </widget>
     </widget>
@@ -49,9 +62,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>30</y>
+        <y>40</y>
         <width>1541</width>
-        <height>751</height>
+        <height>741</height>
        </rect>
       </property>
       <property name="readOnly">

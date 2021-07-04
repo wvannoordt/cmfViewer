@@ -18,6 +18,11 @@ SceneView& GlScene::GetCurrentView(void)
     return currentView;
 }
 
+std::vector<GlSceneObject*>& GlScene::GetObjects(void)
+{
+    return sceneObjects;
+}
+
 void GlScene::AddObject(GlSceneObject* newObject)
 {
     sceneObjects.push_back(newObject);

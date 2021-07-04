@@ -16,6 +16,7 @@ class GlScene
         void PaintObjects(void);
         SceneView& GetCurrentView(void);
         void AddObject(GlSceneObject* newObject);
+        std::vector<GlSceneObject*>& GetObjects(void);
     private:
         std::vector<GlSceneObject*> sceneObjects;
         SceneView currentView;

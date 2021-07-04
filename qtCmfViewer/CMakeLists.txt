@@ -43,12 +43,17 @@ set(PROJECT_SOURCES
         src/Main/mainwindow.cpp
         src/Main/mainwindow.h
         src/Main/mainwindow.ui
+        src/Main/PTLDialog.h
+        src/Main/PTLDialog.cpp
+        src/Main/PTLDialog.ui
+        #
         src/View/GlViewWindow.h
         src/View/GlViewWindow.cpp
         src/View/SceneView.h
         src/View/GlScene.h
         src/View/GlScene.cpp
         src/View/GlSceneObject.h
+        #
         src/SceneObjects/CubeObject.h
         src/SceneObjects/CubeObject.cpp
         src/SceneObjects/CmfCartesianMeshObject.h
