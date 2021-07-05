@@ -13,12 +13,14 @@ ConsoleLog::~ConsoleLog(void)
 void ConsoleLog::WriteString(const std::string& msg)
 {
     QTextCursor c(this->document());
+    c.movePosition(QTextCursor::End);
     c.insertText(QString::fromStdString(msg));
 }
 
 void ConsoleLog::WriteString(const char* msg)
 {
     QTextCursor c(this->document());
+    c.movePosition(QTextCursor::End);
     c.insertText(QString::fromStdString(msg));
 }
 
