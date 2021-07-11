@@ -65,7 +65,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
             inputPrototype["CartesianMesh"].StrictParse();
             auto mesh = new cmf::CartesianMesh(info);
             meshes.push_back(mesh);
-            activeScene->GetScene().AddObject(new CmfCartesianMeshObject(mesh));
+            activeScene->GetScene().Add<CmfCartesianMeshObject>(mesh);
             lastCartMesh = mesh;
         }
         activeScene->update();
@@ -102,21 +102,10 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
             auto trig = new cmf::SurfaceTriangulation();
             triangulations.push_back(trig);
             trig->DefineTriangulation(filename.toStdString());
-
-            activeScene->GetScene().AddObject(new CmfSurfaceTriangulationObject(trig));
+            activeScene->GetScene().Add<CmfSurfaceTriangulationObject>(trig);
             activeScene->update();
             lastSurfTri = trig;
         }
-    }
-    if (KeyIsPressed(Qt::Key_Control) && (e->key()==(int)(Qt::Key_M)))
-    {
-        for (auto& obj:activeScene->GetScene().GetObjects())
-        {
-            wireFrameMode = !wireFrameMode;
-            obj->SetFacesEnabled(!wireFrameMode);
-            obj->SetLinesEnabled(true);
-        }
-        activeScene->update();
     }
 }
 
